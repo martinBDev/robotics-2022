@@ -113,15 +113,6 @@ void userInput()
   }
 }
 
-void inputCorrectoUsuario() 
-{
-  posicionRepeticionSecuencia += 1;
-  if (posicionRepeticionSecuencia == 3 + (turnoActual - 1)) 
-  {
-    turnoActual += 1;
-  }
-}
-
 /**
 En caso de que el usuario falle al repetir la secuencia, el led
 rojo parpadeará 5 veces.
