@@ -1,6 +1,6 @@
-# ROBOTICS 2022
+# 🤖 ROBOTICS 2022
 
-## Bloque 1
+## 🦾 Bloque 1
 
 ### 🎲 Dado 1.1
 <ul>
