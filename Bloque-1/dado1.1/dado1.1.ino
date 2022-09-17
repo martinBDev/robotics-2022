@@ -1,3 +1,9 @@
+  //AUTORES:
+  //Martin Beltran Diaz - UO276244
+  //Stelian Adrian Stanci - UO277653
+  //Laura Pernia Blanco - UO276264
+  
+  
   //PINES DE LOS LED
   int const led1 = 10;
   int const led2 = 11;
