@@ -3,6 +3,16 @@
 ## 🦾 Bloque 1
 
 ### 🎲 Dado 1.1
+<details>
+    <summary>Enunciado</summary>
+    <br>
+    Habrá que simular un dado electrónicamente. Para ello, se utilizarán 3 LEDs y un pulsador.
+    Inicialmente, todos los LEDs estarán apagados. Cuando se presione el pulsador, el sistema
+    generará un número aleatorio entre 1 y 3. El número obtenido se mostrará al usuario
+    encendiendo los LEDs. Los LEDs se deben situarse en línea, y deberán encenderse siempre de
+    forma ordenada: primero los encendidos y luego los apagados, es decir, no mezclados.
+
+</details>
 <ul>
     <li> Código: ✅</li>
     <li> Fotografía: ✅</li>
@@ -11,6 +21,43 @@
 </ul>
 
 ### 🧠 Memoria 1.2
+<details>
+    <summary>Enunciado</summary>
+    <br>
+    En este ejercicio se creará un juego como el «Simón». Como máximo deberá tener 3
+    turnos, es decir, la secuencia más larga será de 5 colores. Sin embargo, esto tiene que ser
+    modificable fácilmente a nivel de código (una variable), y mostrarlo en el vídeo.
+    <br><br>
+    Cuando iniciamos la aplicación se debe generar una secuencia aleatoria (de verdad y
+    demostrada en el video). Esta secuencia comenzará con 3 opciones, que serán en función de la
+    secuencia aleatoria que se obtuvo. Se recomiendo utilizar una estructura de datos, como puede ser array, para almacenar las secuencias. Por ejemplo, esta secuencia podría ser: Verde-RojoVerde, Verde-Verde-Verde, Rojo-Rojo-Rojo, Rojo-Verde-Verde, etc. Entre cada parpadeo se
+    debe esperar un segundo. Tras esto, hay que esperar un par de segundos y comenzará el usuario
+    a introducirla.<br><br>
+    En este momento es cuando el usuario debe reproducir esa secuencia utilizando los
+    pulsadores. Un pulsador se corresponderá al rojo y el otro al verde. Es decir, para «acertar» la
+    secuencia Verde, Rojo, Verde el usuario deberá pulsar el pulsador asociado al verde una vez,
+    después el pulsador asociado al rojo y tras esto el pulsador asociado al verde una vez. Cuando
+    se pulse un pulsador, el LED asociado a ese pulsador se deberá iluminar.<br><br>
+    Si el usuario realiza la acción correctamente, el juego sube de nivel. El incremento de nivel
+    implica añadir un nuevo color generado aleatoriamente a la secuencia previa. Cada vez que el
+    usuario acierta la combinación se vuelve a repetir la secuencia anterior añadiendo un parpadeo
+    adicional para así ir aumentando la dificultad. ¡Ojo! Se añade un nuevo color a la secuencia
+    previa, no hay que generar una nueva secuencia entera. Cuando llegué al final y el usuario
+    obtenga la victoria, se mostrará un efecto de luz especial que indicará la victoria del usuario.<br><br>
+    Si el usuario se equivoca y realiza una pulsación incorrecta, el juego finalizará, se mostrará
+    un efecto de luz que indicará el fin de la partida (diferente al de la victoria) y se volverá a iniciar
+    desde el principio. Se debe volver a generar una secuencia aleatoria inicial nueva.<br><br>
+    Se debe dividir la funcionalidad del sistema en funciones. Si toda la lógica se encuentra en
+    el método «loop», se restará la mitad de puntos, aunque el ejercicio esté bien.<br><br>
+    ¡Cuidado! Los pulsadores necesitan de una resistencia, así que hay que añadirla, pues,
+    en el caso de que quedaran conectadas directamente las corrientes positivas y negativa se haría
+    un cortocircuito y se podría quemar la placa.<br><br>
+    Atención: cuando se grabe el video, hay que mostrar tres secuencias/rondas, en dos
+    partidas, una en la que funcione bien y otra partida en la que se falle en la segunda secuencia,
+    para ver cómo se reinicia el juego. Habrá que mostrar varios inicios del primer turno para
+    enseñar que el aleatorio se hizo correctamente. Si no, se descontarán puntos.
+
+</details>
 <ul>
     <li> Código: ✅</li>
     <li> Fotografía: ✅</li>
@@ -19,6 +66,16 @@
 </ul>
 
 ### 🚥 Semaforo 1.4
+<details>
+    <summary>Enunciado</summary>
+    <br>
+    En este ejercicio hay que implementar un cruce con dos semáforos. Para ello, cuando un
+    semáforo esté en verde, el otro estará en rojo. Después de un tiempo, el semáforo que está en
+    verde tendrá que pasar a amarillo, y, tras unos segundos, a rojo. Tras una breve pausa para
+    esperar a que los coches terminen de cruzar, el otro deberá de ponerse en verde y repetir el
+    mismo proceso.
+
+</details>
 <ul>
     <li> Código: ✅</li>
     <li> Fotografía: ✅</li>
@@ -28,6 +85,23 @@
 
 
 ### 🚥👨‍🦯 Semaforo 1.5
+<details>
+    <summary>Enunciado</summary>
+    <br>
+    Este ejercicio es una ampliación sobre el ejercicio anterior, cambiando algún componente
+    y añadiendo un paso para peatones.<br><br>
+    Habrá que cambiar los LEDs de los semáforos a LEDs RGB. Seguirá habiendo dos
+    semáforos, pero solo uno tendrá paso para peatones.<br><br>
+    Para el paso de peatones, habrá que utilizar el LED verde, el LED rojo, y el zumbador. El
+    LED rojo estará encendido cuando el semáforo para coches correspondiente esté en verde.
+    Cuando este esté en rojo, y después de un tiempo, para evitar atropellos, se encenderá el LED
+    verde para peatones y el zumbador hará pitidos para que las personas ciegas sepan cuando
+    cruzar. Cuando quede poco tiempo, el LED verde deberá de parpadear y los sonidos ir un poco
+    más rápido. Una vez se ponga en rojo y tras unos segundos, se abrirá el tráfico a los coches en
+    la vía correspondiente.
+
+
+</details>
 <ul>
     <li> Código: ✅</li>
     <li> Fotografía: ✅</li>
