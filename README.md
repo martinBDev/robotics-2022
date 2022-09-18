@@ -110,7 +110,7 @@
 </ul>
 
 
-### 🚥👨‍🦯 Discoteca 1.6
+### 🕺 Discoteca 1.6
 <details>
     <summary>Enunciado</summary>
     <br>
