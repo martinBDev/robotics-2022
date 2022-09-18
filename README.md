@@ -108,3 +108,24 @@
     <li> Vídeo: ❌</li>
     <li> Documentación:  ✅</li>
 </ul>
+
+
+### 🚥👨‍🦯 Discoteca 1.6
+<details>
+    <summary>Enunciado</summary>
+    <br>
+    Se tratará de hacer un sistema para que el DJ pueda cambiar las tonalidades de las luces y el volumen a su gusto. Para ello, se usarán dos potenciómetros.<br><br>
+    Un potenciómetro controlará las luces, en nuestro caso, son LEDs RGB. Cuando esté en su valor mínimo, un LED RGB estará apagado y el otro estará iluminando con todos los colores a tope. Según se vaya creciendo el valor del potenciómetro, el LED RGB apagado irá encendiéndose, haciendo una escala de colores (arcoíris y de forma libre y comenzando en 000 y terminando los colores en 255) y el segundo LED hará justamente lo contrario. En el valor central del potenciómetro ambos LEDs RGB deberán de tener la misma tonalidad.<br><br>
+    El segundo potenciómetro controlará las notas musicales. El valor mínimo no hará ruido y el máximo hará una de las notas más altas en la escala musical.<br><br>
+    Como se necesitarán 7 salidas digitales PWM y en el Arduino UNO solo hay 6, hay tres posibilidades para hacer este ejercicio:<br><br>
+        • Pedir prestada la plaza Arduino Mega.<br>
+        • Usar un transistor.<br>
+        • «Trampearlo» usando una salida para dos LEDs.<br>
+
+</details>
+<ul>
+    <li> Código: ✅</li>
+    <li> Fotografía: ✅</li>
+    <li> Vídeo: ❌</li>
+    <li> Documentación:  ✅</li>
+</ul>
