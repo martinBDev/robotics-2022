@@ -129,3 +129,21 @@
     <li> Vídeo: ❌</li>
     <li> Documentación:  ✅</li>
 </ul>
+
+
+
+### 🦃 Regulador 1.7
+<details>
+    <summary>Enunciado</summary>
+    <br>
+    Conectar 3 LEDs y un potenciómetro. En función del valor de entrada del potenciómetro se tendrán que encender 0, 1, 2 o los 3 LEDs de forma secuencial, empezando por el 0 y siguiendo el orden. En este caso, todos los LEDs deben encenderse siempre con la misma intensidad, es decir, estarán apagados o encendidos.<br><br>
+La secuencia de encendido es: se encienda primero el A, después el B, después el C, después A y B, después B y C, después A y C, y cuando esté en el máximo valor los 3.<br><br>
+
+</details>
+<ul>
+    <li> Código: ✅</li>
+    <li> Fotografía: ✅</li>
+    <li> Vídeo: ❌</li>
+    <li> Documentación:  ❌</li>
+</ul>
+
