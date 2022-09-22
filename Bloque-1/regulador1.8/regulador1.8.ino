@@ -28,16 +28,20 @@ Serial.println("Setup");
   
 }
 
+//Lista para acceder a los limites de input del potenciometro
 int valoresLimiteLeds[][3] = {
   {1,32,63},
   {64,100,127},
   {128,160,191}
 };
 
+//Valores en los que todos los leds se encienden
 int valoresComunesLeds[3] = {192,210,255};
 
 int pinesArray[3] = {pinLed1,pinLed2,pinLed3};
 
+
+//En funcion del led y del input del potenciometro, se decide cual y cuanto se enciende.
 void ledProcessPoten(int numeroLed, int inputPoten){
 
 
@@ -76,6 +80,10 @@ void ledProcessPoten(int numeroLed, int inputPoten){
 
 void loop()
 {
+
+  //Como el pin PWM me funcionaba solo dando valores aletorios,
+  //he decidido usar un pin analogico para que el circutio tenga la funcionalidad
+  //esperada
   int inputPoten = (analogRead(pinPoten))/4;
 
     
@@ -88,20 +96,20 @@ void loop()
     ledProcessPoten(3, inputPoten);
   }
   else if(inputPoten == valoresComunesLeds[0]){
-
+    //Enciende todas con potencia 1
     for(int i = 0; i < sizeof(pinesArray); i++){
       analogWrite(pinesArray[i], 1);
     }
     
 
   }else if(inputPoten <= valoresComunesLeds[1]){
-
+//Enciende todas con potencia 160
     for(int i = 0; i < sizeof(pinesArray); i++){
       analogWrite(pinesArray[i], 160);
     }
 
   }else if(inputPoten <= valoresComunesLeds[2]){
-
+//Enciende todas con potencia 255
     for(int i = 0; i < sizeof(pinesArray); i++){
       analogWrite(pinesArray[i], 255);
     }
