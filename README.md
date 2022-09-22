@@ -65,6 +65,27 @@
     <li> Documentación:  ✅</li>
 </ul>
 
+### 📢 Zumbador 1.3
+<details>
+    <summary>Enunciado</summary>
+    <br>
+    Hay que ampliar el ejercicio anterior y agregar un sonido característico a cada uno de los
+    LEDs utilizando el zumbador y sustituir los LEDs por un LED RGB. En lugar de utilizar 2 LEDs
+    normales habrá que utilizar un LED RGB.
+    <br><br>
+    El sonido debe reproducirse cuando los LEDs parpadeen o cuando el usuario pulse el
+    pulsador asociado a cada LED.<br><br>
+    Cuando la partida finalice, y sea debido a que el usuario ha perdido hay que mostrar el
+    color azul durante unos segundos. En caso de haber ganado, deberá de haber una «explosión»
+    de colores
+</details>
+<ul>
+    <li> Código: ✅</li>
+    <li> Fotografía: ❌</li>
+    <li> Vídeo: ✅</li>
+    <li> Documentación:  ✅</li>
+</ul>
+
 ### 🚥 Semaforo 1.4
 <details>
     <summary>Enunciado</summary>
