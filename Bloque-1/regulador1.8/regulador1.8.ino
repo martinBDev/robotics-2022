@@ -1,5 +1,8 @@
-// C++ code
-//
+
+  //AUTORES:
+  //Martin Beltran Diaz - UO276244
+  //Stelian Adrian Stanci - UO277653
+  //Laura Pernia Blanco - UO276264
 
 //Definimos pines de LEDs
 int pinLed1 = 5;

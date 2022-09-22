@@ -1,4 +1,8 @@
 
+  //AUTORES:
+  //Martin Beltran Diaz - UO276244
+  //Stelian Adrian Stanci - UO277653
+  //Laura Pernia Blanco - UO276264
 int pin_potenciometro_leds = A2; //Analog --> 0-1023
 int pin_potenciometro_buzz = A1; //Analog --> 0-1023
 
