@@ -147,3 +147,17 @@ La secuencia de encendido es: se encienda primero el A, después el B, después 
     <li> Documentación:  ❌</li>
 </ul>
 
+### 🎖️ Regulador 1.8
+<details>
+    <summary>Enunciado</summary>
+    <br>
+    Conectar 3 LEDs y un potenciómetro. En función del valor de entrada del potenciómetro se tendrán que encender 0, 1, 2 o los 3 LEDs. No obstante, en este caso, cuando más cercano esté del límite inferior, menos luminosidad tendrán los LED y cuantos más cercanos al límite superior tendrán más luminosidad. Utilizar las salidas PWM para encenderlos.<br><br>
+
+</details>
+<ul>
+    <li> Código: 📙</li>
+    <li> Fotografía: ✅</li>
+    <li> Vídeo: ❌</li>
+    <li> Documentación:  ❌</li>
+</ul>
+
