@@ -155,9 +155,9 @@ La secuencia de encendido es: se encienda primero el A, después el B, después 
 
 </details>
 <ul>
-    <li> Código: 📙</li>
+    <li> Código: ✅</li>
     <li> Fotografía: ✅</li>
-    <li> Vídeo: ❌</li>
-    <li> Documentación:  ❌</li>
+    <li> Vídeo: ✅</li>
+    <li> Documentación:  ✅</li>
 </ul>
 
