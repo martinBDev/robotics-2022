@@ -1,4 +1,9 @@
+  //AUTORES:
+  //Martin Beltran Diaz - UO276244
+  //Stelian Adrian Stanci - UO277653
+  //Laura Pernia Blanco - UO276264
 
+  
   //AUTORES:
   //Martin Beltran Diaz - UO276244
   //Stelian Adrian Stanci - UO277653
@@ -9,7 +14,7 @@ int pinLed1 = 5;
 int pinLed2 = 6;
 int pinLed3 = 9;
 //Definimos pin del potenciometro
-int pinPoten = 3;
+int pinPoten = A0;
 
 void setup()
 {
@@ -45,19 +50,22 @@ void ledProcessPoten(int numeroLed, int inputPoten){
   }
   else if(inputPoten == valoresLimiteLeds[numeroLed-1][0]){
 
+    apagarTodas();
     analogWrite(pinesArray[numeroLed-1], 1);
 
 
-  }else if(inputPoten <= valoresLimiteLeds[numeroLed-1][1]){
-
+  }else if(inputPoten <= valoresLimiteLeds[numeroLed-1][1] && inputPoten > valoresLimiteLeds[numeroLed-1][0]){
+    apagarTodas();
     analogWrite(pinesArray[numeroLed-1], 160);
 
-  }else if(inputPoten <= valoresLimiteLeds[numeroLed-1][2]){
-
+  }else if(inputPoten <= valoresLimiteLeds[numeroLed-1][2] && inputPoten > valoresLimiteLeds[numeroLed-1][1]){
+    apagarTodas();
     analogWrite(pinesArray[numeroLed-1], 255);
 
   }else{
-    Serial.print("Value out of bounds: ");
+    Serial.print("Value out of bounds for led ");
+    Serial.print(numeroLed);
+    Serial.print(": ");
     Serial.println(inputPoten
     );
   }
@@ -68,9 +76,9 @@ void ledProcessPoten(int numeroLed, int inputPoten){
 
 void loop()
 {
-  int inputPoten = analogRead(pinPoten);
+  int inputPoten = (analogRead(pinPoten))/4;
 
-    delay(3000);
+    
     Serial.print("Input poten: ");
     Serial.println(inputPoten);
 
@@ -86,13 +94,13 @@ void loop()
     }
     
 
-  }else if(inputPoten <= valoresComunesLeds[2]){
+  }else if(inputPoten <= valoresComunesLeds[1]){
 
     for(int i = 0; i < sizeof(pinesArray); i++){
       analogWrite(pinesArray[i], 160);
     }
 
-  }else if(inputPoten <= valoresComunesLeds[3]){
+  }else if(inputPoten <= valoresComunesLeds[2]){
 
     for(int i = 0; i < sizeof(pinesArray); i++){
       analogWrite(pinesArray[i], 255);
@@ -100,4 +108,10 @@ void loop()
 
   }
 
+}
+
+void apagarTodas(){
+  for(int i = 0; i < sizeof(pinesArray); i++){
+      analogWrite(pinesArray[i], 0);
+    }
 }
