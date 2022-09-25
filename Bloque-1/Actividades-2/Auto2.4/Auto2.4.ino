@@ -1,5 +1,11 @@
 #include <Keypad.h>
 
+
+// Auto 2.3
+// Martín Beltrán Díaz UO276244
+// Stelian Adrian Stanci UO277653
+// Laura Pernía Blanco UO276264
+
 int ledRojo = 11;
 int ledVerde = 12;
 
