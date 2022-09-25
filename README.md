@@ -6,7 +6,6 @@
 <details>
 
 <summary>Actividades</summary>
-    <br><br>
 
 
 #### 🎲 Dado 1.1
@@ -107,7 +106,7 @@
 <ul>
     <li> Código: ✅</li>
     <li> Fotografía: ✅</li>
-    <li> Vídeo: ❌</li>
+    <li> Vídeo: ✅</li>
     <li> Documentación:  ✅</li>
 </ul>
 
@@ -213,7 +212,6 @@ La secuencia de encendido es: se encienda primero el A, después el B, después 
 ### Actividades - 2
 <details>
     <summary>Actividades</summary>
-    <br><br>
 
 ##### 🚪 Abrir 2.1
 <details>
