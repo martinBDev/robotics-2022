@@ -2,13 +2,14 @@
 
 ## 🦾 Bloque 1
 
+### Actividades - 1
 <details>
 
-    <summary>Actividades - 1</summary>
+<summary>Actividades - 1</summary>
     <br><br>
 
 
-### 🎲 Dado 1.1
+#### 🎲 Dado 1.1
 <details>
     <summary>Enunciado</summary>
     <br>
@@ -26,7 +27,7 @@
     <li> Documentación:  ✅</li>
 </ul>
 
-### 🧠 Memoria 1.2
+#### 🧠 Memoria 1.2
 <details>
     <summary>Enunciado</summary>
     <br>
@@ -71,7 +72,7 @@
     <li> Documentación:  ✅</li>
 </ul>
 
-### 📢 Zumbador 1.3
+#### 📢 Zumbador 1.3
 <details>
     <summary>Enunciado</summary>
     <br>
@@ -92,7 +93,7 @@
     <li> Documentación:  ✅</li>
 </ul>
 
-### 🚥 Semaforo 1.4
+#### 🚥 Semaforo 1.4
 <details>
     <summary>Enunciado</summary>
     <br>
@@ -111,7 +112,7 @@
 </ul>
 
 
-### 🚥👨‍🦯 Semaforo 1.5
+#### 🚥👨‍🦯 Semaforo 1.5
 <details>
     <summary>Enunciado</summary>
     <br>
@@ -137,7 +138,7 @@
 </ul>
 
 
-### 🕺 Discoteca 1.6
+#### 🕺 Discoteca 1.6
 <details>
     <summary>Enunciado</summary>
     <br>
@@ -159,7 +160,7 @@
 
 
 
-### 🦃 Regulador 1.7
+#### 🦃 Regulador 1.7
 <details>
     <summary>Enunciado</summary>
     <br>
@@ -174,7 +175,7 @@ La secuencia de encendido es: se encienda primero el A, después el B, después 
     <li> Documentación:  ✅</li>
 </ul>
 
-### 🎖️ Regulador 1.8
+#### 🎖️ Regulador 1.8
 <details>
     <summary>Enunciado</summary>
     <br>
@@ -191,12 +192,14 @@ La secuencia de encendido es: se encienda primero el A, después el B, después 
 </details>
 
 
-<details>
 
+
+### Actividades - 2
+<details>
     <summary>Actividades - 2</summary>
     <br><br>
 
-### 🚪 Abrir 2.1
+##### 🚪 Abrir 2.1
 <details>
     <summary>Enunciado</summary>
     <br>
@@ -216,7 +219,7 @@ La secuencia de encendido es: se encienda primero el A, después el B, después 
 </ul>
 
 
-### 📪 Cerrar 2.2
+#### 📪 Cerrar 2.2
 <details>
     <summary>Enunciado</summary>
     <br>
@@ -239,7 +242,7 @@ La secuencia de encendido es: se encienda primero el A, después el B, después 
 </ul>
 
 
-### 🔑 Contraseña 2.3
+#### 🔑 Contraseña 2.3
 <details>
     <summary>Enunciado</summary>
     <br>
@@ -267,7 +270,7 @@ La secuencia de encendido es: se encienda primero el A, después el B, después 
 </ul>
 
 
-### 🧎 Auto 2.4
+#### 🧎 Auto 2.4
 <details>
     <summary>Enunciado</summary>
     <br>
