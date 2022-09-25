@@ -5,7 +5,7 @@
 ### Actividades - 1
 <details>
 
-<summary>Actividades - 1</summary>
+<summary>Actividades</summary>
     <br><br>
 
 
@@ -196,7 +196,7 @@ La secuencia de encendido es: se encienda primero el A, después el B, después 
 
 ### Actividades - 2
 <details>
-    <summary>Actividades - 2</summary>
+    <summary>Actividades</summary>
     <br><br>
 
 ##### 🚪 Abrir 2.1
