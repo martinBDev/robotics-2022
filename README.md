@@ -2,6 +2,12 @@
 
 ## 🦾 Bloque 1
 
+<details>
+
+    <summary>Actividades - 1</summary>
+    <br><br>
+
+
 ### 🎲 Dado 1.1
 <details>
     <summary>Enunciado</summary>
@@ -182,3 +188,112 @@ La secuencia de encendido es: se encienda primero el A, después el B, después 
     <li> Documentación:  ✅</li>
 </ul>
 
+</details>
+
+
+<details>
+
+    <summary>Actividades - 2</summary>
+    <br><br>
+
+### 🚪 Abrir 2.1
+<details>
+    <summary>Enunciado</summary>
+    <br>
+    La puerta se abre cuando el usuario pulsa el botón A del teclado y permanece abierta
+    durante 5 segundos, haciendo que un LED de color rojo esté encendido. Pasado ese tiempo se
+    cierra. En otros casos, el LED verde estará iluminando para indicar que se puede pasar.<br><br>
+    Si el usuario vuelve a pulsar el botón A mientras la puerta está abierta esa pulsación se
+    ignora.<br><br>
+    Si el usuario pulsa cualquier otra tecla, no debe realizar ninguna otra acción.<br><br>
+
+</details>
+<ul>
+    <li> Código: ✅</li>
+    <li> Fotografía: ✅</li>
+    <li> Vídeo: ❌</li>
+    <li> Documentación:  ❌</li>
+</ul>
+
+
+### 📪 Cerrar 2.2
+<details>
+    <summary>Enunciado</summary>
+    <br>
+   Además de abrirse la puerta al pulsar el botón A, cuando el usuario pulse el botón C del
+    teclado, la puerta debe cerrarse, siempre y cuando en ese momento este abierta, e
+    indistintamente de que aún no hayan pasado los 5 segundos de tiempo de apertura.<br><br>
+    El proceso de cerrar la puerta debe ser inmediato una vez se pulsa el botón.<br><br>
+    NOTA: en este apartado, la espera de 5 segundos no se puede realizar con un delay(5000),
+    ya que debemos continuar procesando pulsaciones de teclado, es decir, ejecutando
+    interacciones de la función loop para poder detectar la orden de cierre de puerta. Una opción
+    puede ser guardar el milisegundo en el que se pulso el botón de abrir la puerta y compararlo
+    con el tiempo actual (para saber si han pasado los 5 segundos).<br><br>
+
+</details>
+<ul>
+    <li> Código: ✅</li>
+    <li> Fotografía: ✅</li>
+    <li> Vídeo: ❌</li>
+    <li> Documentación:  ❌</li>
+</ul>
+
+
+### 🔑 Contraseña 2.3
+<details>
+    <summary>Enunciado</summary>
+    <br>
+    Ahora añadiremos seguridad a nuestra puerta, requiriendo contraseña para entrar. La
+    puerta se deberá abrir cuando el usuario introduzca en el teclado una contraseña: 9876. La
+    contraseña se comprobará después de que el usuario introduzca 4 pulsaciones de teclado. Ya
+    no puede abrirse pulsando la tecla A, pero sí se cerrará con la tecla C.<br><br>
+    Si el usuario introduce la contraseña de forma correcta, el LED verde debe mantenerse
+    apagado durante 1 segundo. Tras este segundo, la puerta se abrirá durante 5 segundos, lo que
+    implica que el LED rojo se encenderá durante ese tiempo. Durante este periodo, no se podrán
+    introducir contraseñas, y si se introduce algo, excepto la tecla C, se obviará.<br><br>
+    Si el usuario introduce la contraseña de forma incorrecta, el LED verde deberá parpadear
+    3 veces en 3 segundos y quedarse encendido, pues la puerta seguirá cerrada. Durante el periodo
+    de parpadeos no se podrán introducir contraseñas ni hará caso a ninguna tecla.<br><br>
+    El sistema debe funcionar de forma continua. Es decir, una vez el usuario introduzca una
+    contraseña el sistema abra la puerta y la cierre el sistema o el usuario, el sistema deberá estar
+    listo para continuar su funcionamiento y recibir más contraseñas.<br><br>
+
+</details>
+<ul>
+    <li> Código: ✅</li>
+    <li> Fotografía: ✅</li>
+    <li> Vídeo: ❌</li>
+    <li> Documentación:  ❌</li>
+</ul>
+
+
+### 🧎 Auto 2.4
+<details>
+    <summary>Enunciado</summary>
+    <br>
+    Ahora, añadiremos un sistema de seguridad de cara a las personas para que la puerta no
+    se cierre cuando ellos están pasando y así no haga daño a la gente y no les llegue a tocar o
+    asustar. Por eso, ampliaremos la puerta añadiendo un sensor de ultrasonidos. La puerta seguirá
+    abriéndose con la misma contraseña de antes, y se cerrará tras 5 segundos o al pulsar la tecla C.
+    Los LEDs funcionarán igual que en el ejercicio anterior.<br><br>
+    Supongamos que el usuario está esperando para pasar por la puerta, o está entrando,
+    cuando el sensor de ultrasonidos detecta una distancia muy baja, menor de 10 cm.<br><br>
+    Colocaremos un sensor de ultrasonidos en la parte de la entrada de la puerta. Mientras
+    este sensor este detectando un objeto a menos de 10 centímetros, la puerta no deberá
+    cerrarse, aunque hayan pasado los 5 segundos. Si se da este caso, significará que alguien está
+    esperando para entrar, o está entrando, y la puerta deberá reiniciar su contador añadiendo
+    otros 5 segundos. El sensor de ultrasonidos podrá estar funcionando continuamente, o bien,
+    solo cuando se necesite, es decir, cuando se vaya a cerrar la puerta ya sea por la tecla C o por el
+    tiempo.<br><br>
+    En el caso de que se quiera cerrar con la tecla C, si alguien está a menos de 10 cm, la
+    puerta no se deberá cerrar.<br><br>
+
+</details>
+<ul>
+    <li> Código: ✅</li>
+    <li> Fotografía: ✅</li>
+    <li> Vídeo: ❌</li>
+    <li> Documentación:  ❌</li>
+</ul>
+
+</details>
