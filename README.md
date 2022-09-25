@@ -189,6 +189,22 @@ La secuencia de encendido es: se encienda primero el A, después el B, después 
     <li> Documentación:  ✅</li>
 </ul>
 
+
+
+#### 🎛️ Regulador 1.9
+<details>
+    <summary>Enunciado</summary>
+    <br>
+    En este ejercicio habrá que juntar los ejercicios 1.7 y 1.8, haciendo, que un potenciómetro se encargue de seleccionar los LED a encender como en el ejercicio 1.7 y el otro potenciómetro de aplicar la intensidad de luz entre 0 y 255 a los LEDs que estén encendidos según el primer potenciómetro.<br><br>
+
+</details>
+<ul>
+    <li> Código: ✅</li>
+    <li> Fotografía: ✅</li>
+    <li> Vídeo: ❌</li>
+    <li> Documentación:  ✅</li>
+</ul>
+
 </details>
 
 
