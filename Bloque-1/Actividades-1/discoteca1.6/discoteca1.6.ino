@@ -34,17 +34,14 @@ void loop(){
     analogWrite(pin_analog_led2, 1023-potenLeds);
 
     //Funcion para "hacer una regla de 3" entre la lectura del potenciometro y las Hz del buzzer
-    int convert_analogBuzz_to_hz = map(ptenBuzz, 0, 1023, 100, 10000); 
+    int convert_analogBuzz_to_hz = map(ptenBuzz, 0, 1023, 400, 10000); 
     tone(pin_analog_buzzer, convert_analogBuzz_to_hz,1);
 
    
 
 
-    Serial.print("Buzz poten: ");
-    Serial.println(ptenBuzz);
-
-    Serial.print("Buzz hz: ");
-    Serial.println(convert_analogBuzz_to_hz);
+    Serial.print("Leds: ");
+    Serial.println(potenLeds);
 
 
 }
