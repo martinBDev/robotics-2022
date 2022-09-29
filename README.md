@@ -153,7 +153,7 @@
 <ul>
     <li> Código: ✅</li>
     <li> Fotografía: ✅</li>
-    <li> Vídeo: ❌</li>
+    <li> Vídeo: ✅</li>
     <li> Documentación:  ✅</li>
 </ul>
 
