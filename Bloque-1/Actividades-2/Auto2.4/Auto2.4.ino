@@ -81,6 +81,10 @@ void loop() {
     //o hasta que se aparte el objeto cercano si ya pasaron los 5 segundos
     while (millis()-initTime < 5000 || estaCerca()){
       
+      if(estaCerca()){
+          initTime = millis(); //se reinicia con otrs 5 sec
+      }
+      
  		//si se pulsa la C se cierra
       if(teclado.getKey() == 'C' && !estaCerca()){
        	 break;
