@@ -2,7 +2,7 @@
 
 ## 🦾 Bloque 1
 
-### Actividades - 1
+### Laboratorio - 1
 <details>
 
 <summary>Actividades</summary>
@@ -209,7 +209,7 @@ La secuencia de encendido es: se encienda primero el A, después el B, después 
 
 
 
-### Actividades - 2
+### Laboratorio - 2
 <details>
     <summary>Actividades</summary>
 
