@@ -34,23 +34,38 @@ void loop(){
 
 
 
-    if(valorX > 913 && !colisioDelante){
-      //rapido delante
-      servo.write(180);
-    
-    }else if(valorX <= 913 && valorX > centro_X + margen && !colisioDelante){
+    if(valorX > 913 ){
 
-      // despacio delante
-      servo.write(105);
+      if(!colisioDelante){
+        //rapido delante
+         servo.write(180);
+      }
+      
+    
+    }else if(valorX <= 913 && valorX > centro_X + margen ){
+
+        if(!colisioDelante){
+            // despacio delante
+            servo.write(105);
+        }
+      
     }else if(valorX <= centro_X + margen && valorX >= centro_X - margen ){
       //Quieto
       servo.write(90);
-    }else if(valorX < centro_X - margen && valorX >= 100 && !colisionDetras){
-      //despacio atras 
-      servo.write(75);
-    }else if( valorX < 100 && !colisionDetras){
-    //rapido atras 
-      servo.write(0);
+    }else if(valorX < centro_X - margen && valorX >= 100 ){
+
+        if(!colisionDetras){
+              //despacio atras 
+              servo.write(75);
+        }
+      
+    }else if( valorX < 100 ){
+
+      if(!colisionDetras){
+          //rapido atras 
+          servo.write(0);
+      }
+    
     }
 
 
