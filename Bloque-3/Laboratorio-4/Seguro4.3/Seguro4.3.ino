@@ -6,8 +6,8 @@ int X_pin = A0; // Pin analógico para leer eje X
 int Y_pin = A1; // Pin analógico para leer eje Y
 
 
-int pin_colision_1 = 2;
-int pin_colision_2 = 3;//Pines de colision
+int pin_colision_1 = 3;
+int pin_colision_2 = 2;//Pines de colision
 
 int centro_X = 486;//Valores del centro del joystick que no está exactamente en el centro (512,512)
 int centro_Y = 501;
@@ -19,7 +19,10 @@ void setup() {
  Serial.begin(9600);
  servo.attach(8);
  pinMode(boton_pin, INPUT_PULLUP); 
+ pinMode(X_pin, INPUT);
+ pinMode(Y_pin,INPUT);
 }
+
 void loop(){
 
 
