@@ -42,6 +42,8 @@ void loop(){
       if(!colisioDelante){
         //rapido delante
          servo.write(180);
+      }else{
+        servo.write(90);
       }
       
     
@@ -50,7 +52,9 @@ void loop(){
         if(!colisioDelante){
             // despacio delante
             servo.write(105);
-        }
+        }else{
+        servo.write(90);
+      }
       
     }else if(valorX <= centro_X + margen && valorX >= centro_X - margen ){
       //Quieto
@@ -60,13 +64,17 @@ void loop(){
         if(!colisionDetras){
               //despacio atras 
               servo.write(75);
-        }
+        }else{
+        servo.write(90);
+      }
       
     }else if( valorX < 100 ){
 
       if(!colisionDetras){
           //rapido atras 
           servo.write(0);
+      }else{
+        servo.write(90);
       }
     
     }
