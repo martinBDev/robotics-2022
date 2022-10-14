@@ -37,6 +37,7 @@ if(!seHaCalibrado){
     moverACoordenada(15);
     moverACoordenada(500);
     moverACoordenada(-1);
+     moverACoordenada(10);
 
 }
 
