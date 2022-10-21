@@ -3,8 +3,8 @@
 Servo servo;
 
 
-int pin_colision_1 = 3;
-int pin_colision_2 = 2;//Pines de colision
+int pin_colision_1 = 2;
+int pin_colision_2 = 3;//LadoMotor
 bool colisionDelante;
 bool colisionDetras;
 bool seHaCalibrado = false;
@@ -17,7 +17,7 @@ int numeroCoordenadas = 24;
 
 void setup() {
   // put your setup code here, to run once:
- //3.-
+ 
  Serial.begin(9600);
  servo.attach(8);
 }
