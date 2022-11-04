@@ -17,20 +17,21 @@ void setup(){
  servoRight.attach(pinServoRight);
 }
 void loop(){
-  //seguir línea
+  //seguir línea (hacia delante)
  if (digitalRead(pinIrIzq) == LINE && digitalRead(pinIrDer) == LINE) {
   servoLeft.write(0);
-  servoRight.write(40);
+  servoRight.write(180);
+ //rotar izq
  } else if (digitalRead(pinIrIzq) == LINE && digitalRead(pinIrDer) == NO_LINE) {
     servoLeft.write(180);
-    servoRight.write(0);
+    servoRight.write(180);
+ //rotar derecha
  } else if (digitalRead(pinIrIzq) == NO_LINE && digitalRead(pinIrDer) == LINE) {
       servoLeft.write(0);
-    servoRight.write(180);
+    servoRight.write(0);
+ //parado
  } else if (digitalRead(pinIrIzq) == NO_LINE && digitalRead(pinIrDer) == NO_LINE) {
       servoLeft.write(90);
     servoRight.write(90);
   }
 }
-
- 
