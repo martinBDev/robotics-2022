@@ -79,22 +79,13 @@ if (cliente.available()) {
              
                // Enviamos al cliente una respuesta HTTP
                cliente.println("HTTP/1.1 200 OK");
-               cliente.println("Content-Type: text/html");
+               cliente.println("Content-Type: application/json");
                cliente.println("Access-Control-Allow-Origin: *");
-               cliente.println();
-                cliente.println("<html>");
-               cliente.println("<body>");
-               cliente.println("<h1>Control de luz por internet</h1>");
-               cliente.println("<h2><a href='index.html?p=encender'>Encender</a></h2>");
-               cliente.println("<h2><a href='index.html?p=apagar'>Apagar</a></h2>");
-               cliente.println("<h2>Humedad");
-               cliente.println(humidity);
-               cliente.println("</h2>");
-               cliente.println("<h2>Temperatura");
-               cliente.println(temperature);
-               cliente.println("</h2>");
-               cliente.println("</body>");
-               cliente.println("</html>");
+               cliente.println("{\"humidity\":");
+              cliente.println(humidity);
+              cliente.println(",\"temperature\":");
+              cliente.println(temperature);
+              cliente.println("}");
              break;
          }
      }
