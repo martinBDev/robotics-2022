@@ -1,22 +1,30 @@
 let map;
 let contentString = "loading...";
 
-function askArduino(){
-    var xhr = new XMLHttpRequest();
-    var url = "http://ip/medir";
+async function askArduino(){
+    
+    var url = "http://localhost:5000/";
+    const response = await fetch(url, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        accept: 'application/json',
+      },
+    });
 
-    xhr.open("GET", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function () {
+    
+    var jsonContent = await response.json()
+    console.log(jsonContent)
+    /* xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var json = JSON.parse(xhr.responseText);
-            console.log(json.email + ", " + json.password);
+            console.log(json.humidity + ", " + json.temperature);
             contentString = "Humidity: " + json.humidity + " - " + "Temperature: " + json.temperature;
         }
-    };
-    xhr.send();
+    }; */
 }
-
+document.getElementById("clickMe").onclick = askArduino;
+/* 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: -34.397, lng: 150.644 },
@@ -44,4 +52,4 @@ marker.addListener("click", () => {
 });
 }
 
-window.initMap = initMap;
+window.initMap = initMap; */

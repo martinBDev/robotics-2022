@@ -5,10 +5,11 @@ Paso 2: activar environment:
 Paso 3: dentro del entorno virtual, instalar flask  y requests: 
         pip install flask
         pip install requests
+        pip install flask-cors
 Paso 4: variable de entorno FLASK_APP: 
-        setx FLASK_APP <archivo>.py
+        setx FLASK_APP "<archivo>.py"
 Paso 5: ejecutar app de flask:
-        flask up
+        flask run
 
 
 
