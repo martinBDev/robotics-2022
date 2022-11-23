@@ -8,12 +8,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/handlebars/4.7.7/handlebars.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="index.css" rel="stylesheet">
-    <!--<script src="arduinoConnect.js"></script>-->
+    <script src="arduinoConnect.js"></script>
     <script src="index.js"></script>
     <script>
       const CONFIGURATION = {
         "locations": [
-          {"title":"Universidad de Oviedo","address1":"C. San Francisco, 3","address2":"Oviedo, España","coords":{"lat":43.3618,"lng":-5.8463}}
+        {"id":"1", "title":"Universidad de Oviedo 2","address1":"C. San Francisco, 3","address2":"Oviedo, España","coords":{"lat":43.3618,"lng":-5.8465}, "ip":"127.0.0.1:5000"},  
+        {"id":"2", "title":"Universidad de Oviedo","address1":"C. San Francisco, 3","address2":"Oviedo, España","coords":{"lat":43.3618,"lng":-5.8463}, "ip":"127.0.0.1:5000"}
         ],
         "mapOptions": {"center":{"lat":38.0,"lng":-100.0},"fullscreenControl":true,"mapTypeControl":false,"streetViewControl":false,"zoom":4,"zoomControl":true,"maxZoom":17,"mapId":""},
         "mapsApiKey": "AIzaSyDH1qR1YrZuJFuLyZYnQ7i0UKAvWL8DT5I",
@@ -70,6 +71,10 @@
               </div>
             {{/each}}
           </div>
+          
+          
+            
+           
           <a class="directions-button" href="" target="_blank" title="Get directions to this location on Google Maps">
             <svg width="34" height="34" viewBox="0 0 34 34"
                   fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -111,5 +116,6 @@
       <div id="gmp-map"></div>
     </div>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDH1qR1YrZuJFuLyZYnQ7i0UKAvWL8DT5I&callback=initMap&libraries=places,geometry&solution_channel=GMP_QB_locatorplus_v6_cAF" async defer></script>
+    
   </body>
 </html>
