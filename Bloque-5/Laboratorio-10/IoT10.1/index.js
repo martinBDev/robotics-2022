@@ -10,6 +10,24 @@ function showElement(el) {
   el.style.display = 'block';
 }
 
+async function askArduino(ip){
+     
+  var url = "http://"+ip+"/medir"; //CAMBIAR URL PARA OBTENER DATOS DEL ARDUINO
+  const response = await fetch(url, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      accept: 'application/json',
+    },
+  });
+
+  
+  var jsonContent = await response.json()
+  console.log(jsonContent)
+  return "Humidity: " + jsonContent.humidity + ", temperature: " + jsonContent.temperature
+
+}
+
 /** Helper function to generate a Google Maps directions URL */
 function generateDirectionsURL(origin, destination) {
   const googleMapsUrlBase = 'https://www.google.com/maps/dir/?';
@@ -78,12 +96,25 @@ function LocatorPlus(configuration) {
       map: locator.map,
       title: location.title,
     });
-    marker.addListener('click', function() {
-      selectResultItem(index, false, true);
+
+    //MODIFICADO PARA PEDIR DATOS AL ARDUINO//////////////////////////////////
+    var contentString = "Loading...";
+   
+    
+    marker.addListener('click',async  function() {
+      contentString = await askArduino("192.168.0.207");
+      const infowindow = new google.maps.InfoWindow({
+        content: contentString,
+        ariaLabel: "Uluru",
+      });
+      infowindow.open({
+        anchor: marker,
+        map: locator.map,
+      });
     });
     return marker;
   });
-
+//////////////////////////////////////////////////////////////////
   // Fit map to marker bounds.
   locator.updateBounds = function() {
     const bounds = new google.maps.LatLngBounds();

@@ -23,7 +23,6 @@ async function askArduino(){
         }
     }; */
 }
-document.getElementById("clickMe").onclick = askArduino;
 /* 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
