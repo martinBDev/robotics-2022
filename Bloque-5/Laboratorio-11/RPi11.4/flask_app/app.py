@@ -33,3 +33,9 @@ def encender():
         encendido=True
     )
 
+@app.route('/ledState')
+def ledState():
+    return jsonify(
+        ledState=False
+    )
+

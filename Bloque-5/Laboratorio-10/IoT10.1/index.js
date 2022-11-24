@@ -71,6 +71,7 @@ function LocatorPlus(configuration) {
     }
   };
 
+  var infoWindow = null;
   // Create a marker for each location.
   const markers = locator.locations.map(function(location, index) {
     const marker = new google.maps.Marker({
@@ -81,18 +82,26 @@ function LocatorPlus(configuration) {
 
     //MODIFICADO PARA PEDIR DATOS AL ARDUINO//////////////////////////////////
     var contentString = "Loading...";
-   
+ 
     
     marker.addListener('click',async  function() {
-      var buttonStr = "<button class=\"LED-button\" title=\"Encender LED del arduino\" id=\"" + location.ip + "\" onclick=interactuarLed(\"" + location.ip + "\")> LED </button>"
-  
+
+      if(infoWindow){
+        infoWindow.close();
+      }
+     
+
+      var buttonStr = "<button class=\"LED-button\" title=\"Encender LED del arduino\" id=\"" + location.ip + "\" onclick=interactuarLed(\"" + location.ip + "\")> LED encendido: </button>"
       
-      contentString =  buttonStr  + "<br/>" + await askArduino(location.ip);
-      const infowindow = new google.maps.InfoWindow({
+      var ledSt = await ledState(location.ip); 
+      contentString = buttonStr + "<br/> <div id=\"ledState\">" + ledSt + "</div>"; 
+    
+      contentString +=  "<br/>" + await askArduino(location.ip);
+      infoWindow = new google.maps.InfoWindow({
         content: contentString,
         ariaLabel: "Uluru",
       });
-      infowindow.open({
+      infoWindow.open({
         anchor: marker,
         map: locator.map,
       });
