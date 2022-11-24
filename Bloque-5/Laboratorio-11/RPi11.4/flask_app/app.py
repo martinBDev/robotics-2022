@@ -13,12 +13,14 @@ app = Flask(__name__)
 CORS(app)
 
 
+
+
 @app.route('/medir')
 def hello():
     return jsonify(
         temperature=16,
-        humidity=12,
-        led=1
+        humidity=90,
+        led=True
     )
     # sending get request and saving the response as response object
    # r = requests.get(url = URL, params = PARAMS)
@@ -30,12 +32,7 @@ def hello():
 @app.route('/interactuarLed')
 def encender():
     return jsonify(
-        encendido=True
+        led=True
     )
 
-@app.route('/ledState')
-def ledState():
-    return jsonify(
-        ledState=False
-    )
 

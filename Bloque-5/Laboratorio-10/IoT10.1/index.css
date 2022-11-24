@@ -274,11 +274,3 @@ button .LED-button{
   margin: 0;
   padding: 0;
 }
-
-button .LED-button{
-  border-color: lightskyblue;
-  border-radius: 2%;
-  border-width: 2.3em;
-  background-color: #1967d2;
-  color: black;
-}

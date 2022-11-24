@@ -80,12 +80,10 @@ void loop(){
                              medirYReturnData(cliente);
                              break;
                          }else if(c == '\n' && peticion.indexOf("interactuarLed") != -1){
-                              digitalWrite(led_error, !ledOn); //se cambia el estado del led
-                              
+                              ledOn = !ledOn;
+                              digitalWrite(led_error, ledOn); //se cambia el estado del led
+                              medirYReturnData(cliente);
                               break;
-                         }else if(c == '\n' && peticion.indexOf("ledState") != -1){
-                            returnStateLed(cliente);
-                            break;
                          }
                      }
              }
@@ -96,22 +94,7 @@ void loop(){
          }
 }
 
-void returnStateLed(EthernetClient cliente){
-  Serial.println("Responder");
-   // Serial.println(peticion);
 
-   Serial.println("Estado led: "+String(ledOn));
-   // Enviamos al cliente una respuesta HTTP
-     cliente.println("HTTP/1.1 200 OK");
-     cliente.println("Content-Type: application/json");
-     cliente.println("Access-Control-Allow-Origin: *");
-     cliente.println();
-
-     cliente.print("{\"stateLed\":");
-    cliente.print(ledOn);
-    cliente.println("}");
-    delay(500);
-}
 
 void medirYReturnData(EthernetClient cliente){
 
@@ -143,6 +126,8 @@ void medirYReturnData(EthernetClient cliente){
     cliente.print(humidity);
     cliente.print(",\"temperature\": ");
     cliente.print(temperature);
+    cliente.print(",\"led\":");
+    cliente.print(ledOn);
     cliente.println("}");
     delay(500);
 

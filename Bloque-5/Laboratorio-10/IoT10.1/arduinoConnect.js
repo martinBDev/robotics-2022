@@ -1,13 +1,18 @@
 
  async function askArduino(ip){
-     
+   
+  var jsonContent = retreiveData(ip)
+  return "Humidity: " + jsonContent.humidity + ", temperature: " + jsonContent.temperature
+
+}
+
+async function retreiveData(ip){
   const response = await callApi(ip, "medir")
 
   
   var jsonContent = await response.json()
   console.log(jsonContent)
-  return "Humidity: " + jsonContent.humidity + ", temperature: " + jsonContent.temperature
-
+  return jsonContent;
 }
 
 
@@ -17,9 +22,9 @@ async function interactuarLed(ip){
   
   var jsonContent = await response.json()
   console.log(jsonContent)
-  $('#ledState').text(jsonContent.encendido);
+  $('#ledState').text(jsonContent.led);
   
-  return "Encendido: "  + jsonContent.encendido
+  return "Encendido: "  + jsonContent.led
 
 }
 
@@ -49,4 +54,5 @@ async function callApi(ip, param){
 
   return response;
 }
+
 

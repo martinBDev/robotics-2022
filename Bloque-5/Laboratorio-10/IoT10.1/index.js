@@ -91,12 +91,35 @@ function LocatorPlus(configuration) {
       }
      
 
-      var buttonStr = "<button class=\"LED-button\" title=\"Encender LED del arduino\" id=\"" + location.ip + "\" onclick=interactuarLed(\"" + location.ip + "\")> LED encendido: </button>"
+      var buttonStr = "<button class=\"LED-button\" title=\"Encender LED del arduino\" id=\"" + location.ip + "\" onclick=interactuarLed(\"" + location.ip + "\") style=\"border-color: lightskyblue;border-radius: 8%;border-width: 2.3em;background-color: chartreuse;color: black;\"> LED encendido: </button>"
       
-      var ledSt = await ledState(location.ip); 
-      contentString = buttonStr + "<br/> <div id=\"ledState\">" + ledSt + "</div>"; 
+      var arduinoState = await retreiveData(location.ip); 
+      contentString = buttonStr + "<br/> <div id=\"ledState\">" + arduinoState.led + "</div>"; 
     
-      contentString +=  "<br/>" + await askArduino(location.ip);
+//ACTUALIZA HUMEDAD
+      if(arduinoState.humidity > CONFIGURATION.alerts.humidity && !arduinoState.led){ //si se supera el limite y aun no se encendio el led
+        
+        contentString +=  "<br/> Humidity: <div id=\"humiduty\" style=\"color:red;\"><b>"  + arduinoState.humidity + "%</b></div>"
+      }else if (arduinoState.humidity > CONFIGURATION.alerts.humidity){ //LOS DATOS ESTAN altos pero se encendio el led de aviso
+        contentString +=  "<br/> Humidity: <div id=\"humiduty\" style=\"color:orange;\"><b>"  + arduinoState.humidity + "%</b></div>"
+      }else{ //datos altos y el led no encendido
+        contentString +=  "<br/> Humidity: <div id=\"humiduty\" style=\"color:green;\"><b>"  + arduinoState.humidity + "%</b></div>"
+      }
+
+
+//ACTUALIZA TEMPERATURA
+      if(arduinoState.temperature > CONFIGURATION.alerts.temperature && !arduinoState.led){ //si se supera el limite y aun no se encendio el led
+        
+        contentString +=  "Temperature: <div id=\"temperature\" style=\"color:red;\"><b>"  + arduinoState.temperature + "ºC</b></div>"
+      }else if (arduinoState.temperature > CONFIGURATION.alerts.temperature){ //LOS DATOS ESTAN altos pero se encendio el led de aviso
+        contentString +=  "Temperature: <div id=\"temperature\" style=\"color:orange;\"><b>"  + arduinoState.temperature + "ºC</b></div>"
+      }else{ //datos altos y el led no encendido
+        contentString +=  "Temperature: <div id=\"temperature\" style=\"color:green;\"><b>"  + arduinoState.temperature + "ºC</b></div>"
+      }
+
+     
+
+      
       infoWindow = new google.maps.InfoWindow({
         content: contentString,
         ariaLabel: "Uluru",
