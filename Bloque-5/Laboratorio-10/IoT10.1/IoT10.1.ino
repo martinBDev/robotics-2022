@@ -28,12 +28,15 @@ IPAddress ip(192,168,0,207);
 
 
 /////////////////////SENSORES//////////////////////////////////////////
-// Descomentar el sensor a utilizar:
+// Sensor DHT a utilizar:
 #define DHTTYPE DHT11 // DHT 11
-
 int pin_sensor = 5;
 DHT dht(pin_sensor, DHTTYPE);
 float temperature, humidity;
+
+//Led para encender
+int led_error = 7;
+bool ledOn = false;
 
 void setup(){
        Serial.begin(9600);
@@ -44,17 +47,16 @@ void setup(){
         servidor.begin();
         Serial.println("Setup");
         // Imprimir la IP
-        Serial.println(Ethernet.localIP());
-        
-       
-       
+        Serial.println(Ethernet.localIP()); 
      
-      
       //sensores
       dht.begin();
       
       temperature = 0;
       humidity = 0;
+
+      pinMode(led_error, OUTPUT);
+      digitalWrite(led_error, ledOn);
  }
 
 void loop(){
@@ -77,6 +79,13 @@ void loop(){
                          if (c == '\n' && peticion.indexOf("medir") != -1){
                              medirYReturnData(cliente);
                              break;
+                         }else if(c == '\n' && peticion.indexOf("interactuarLed") != -1){
+                              digitalWrite(led_error, !ledOn); //se cambia el estado del led
+                              
+                              break;
+                         }else if(c == '\n' && peticion.indexOf("ledState") != -1){
+                            returnStateLed(cliente);
+                            break;
                          }
                      }
              }
@@ -85,6 +94,23 @@ void loop(){
              delay(1000);
              cliente.stop();// Cierra la conexión
          }
+}
+
+void returnStateLed(EthernetClient cliente){
+  Serial.println("Responder");
+   // Serial.println(peticion);
+
+   Serial.println("Estado led: "+String(ledOn));
+   // Enviamos al cliente una respuesta HTTP
+     cliente.println("HTTP/1.1 200 OK");
+     cliente.println("Content-Type: application/json");
+     cliente.println("Access-Control-Allow-Origin: *");
+     cliente.println();
+
+     cliente.print("{\"stateLed\":");
+    cliente.print(ledOn);
+    cliente.println("}");
+    delay(500);
 }
 
 void medirYReturnData(EthernetClient cliente){
