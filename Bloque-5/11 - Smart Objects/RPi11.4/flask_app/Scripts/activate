@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\usuario\Desktop\Eii\AÑO 4 GRADO INGENIERIA INFORMATICA\Software para Robots\Lab\robotics-2022\Bloque-5\Laboratorio-11\RPi11.4\flask_app"
+VIRTUAL_ENV="C:\Users\usuario\Desktop\Eii\AÑO 4 GRADO INGENIERIA INFORMATICA\Software para Robots\Lab\robotics-2022\Bloque-5\11 - Smart Objects\RPi11.4\flask_app"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
