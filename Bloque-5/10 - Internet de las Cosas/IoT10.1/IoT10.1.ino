@@ -128,12 +128,12 @@ void medirYReturnData(EthernetClient cliente){
      cliente.println();
 
      cliente.print("{\"humidity\":");
-    cliente.print(humidity);
-    cliente.print(",\"temperature\": ");
-    cliente.print(temperature);
-    cliente.print(",\"led\":");
-    cliente.print(ledOn);
-    cliente.println("}");
-    delay(500);
+     cliente.print(humidity);
+     cliente.print(",\"temperature\": ");
+     cliente.print(temperature);
+     cliente.print(",\"led\":");
+     cliente.print(ledOn);
+     cliente.println("}");
+     delay(500);
 
 }

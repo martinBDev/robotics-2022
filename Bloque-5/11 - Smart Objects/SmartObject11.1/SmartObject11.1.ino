@@ -51,10 +51,21 @@ String PATH_NAME = "";
 
 ////////////////////////////////////////////////////////////////////////////////
 
-String temp= "data=5";  
+/////MODOS DEL TORNO///////////////////////
+
+enum ModoTrabajo {
+blocked, //bloqueado por avería: led en rojo y torno cerradp
+working, //trabajo normal del torno
+open //torno permite pasar todo el rato
+};
+
+ModoTrabajo estadoActual;
+///////////////////////////////////////////////
 
     void setup()
     {
+            estadoActual = working;
+
             Ethernet.begin(mac, ip, dnsServer, gateway, subnet);
             Serial.begin(9600);
             servidor.begin();
@@ -68,21 +79,24 @@ String temp= "data=5";
             rfid.PCD_Init();
             
             for (byte i = 0; i < 6; i++) { //La key por defecto es FF FF FF FF FF
-                key.keyByte[i] = 0xFF;
+                                          //La key por defecto se usa para desencriptar los datos de la tarjeta (si los hay)
+                key.keyByte[i] = 0xFF;    //LA KEY POR DEFECTO DE TARJETAS DEL FABRICANTE MIFARE (Mini, 1k y 4k) ES LA QUE SE DIJO ARRIBA
             }
 
     }
 
     void loop()                                           
-    {                      
+    { //FALTA AÑADIR CHECKEO DEL MODO DE TRABAJO DEL TORNO  
+
+
         EthernetClient client = servidor.available();
         //Si hay peticion HTTP darle prioridad
         if(client){ //Se da preferencia a las peticiones que lleguen desde el server
 
         }else if(! rfid.PICC_IsNewCardPresent()){ //Si no hay tarjeta, resetea el loop
             return;
-        }else{
-            readCardAndSend();
+        }else{ //Si hay tarjeta, leer 
+            sendIDToServer(readCard());
         }     
 
     }
@@ -90,7 +104,7 @@ String temp= "data=5";
 
 
     //Leer el UID de la tarjeta y enviar los datos al server
-    void readCardAndSend(){
+    String readCard(){
 
           // Esto evita que mientras la tarjeta está en el rango de lectura, se lea de forma infinita
             if ( ! rfid.PICC_ReadCardSerial())
@@ -108,12 +122,6 @@ String temp= "data=5";
             }
 
 
-            byte nuidPICC[4]; //para guardar el NUID en un array de bytes
-            
-            for (byte i = 0; i < 4; i++) {
-                nuidPICC[i] = rfid.uid.uidByte[i];
-            }
-
             Serial.println(F("The NUID tag is:"));
             Serial.print(F("In hex: "));
             printHex(rfid.uid.uidByte, rfid.uid.size);
@@ -124,32 +132,42 @@ String temp= "data=5";
 
             String stringUID = "";
             for(int i = 0; i < 4; i++){ //TRASNFORMA el uid a string
-              stringUID += nuidPICC[i];
+              stringUID += rfid.uid.uidByte[i]; //LEE EL UID DE LA TARJETA POR BYTES
             }
 
             Serial.println(stringUID);
 
-                        // Halt PICC
+
+
+            //para dejar de leer la tarjeta
+            // Halt PICC
             rfid.PICC_HaltA();
 
             // Stop encryption on PCD
             rfid.PCD_StopCrypto1();
 
+            return stringUID;
     }
 
 
 
 
 
-    void sendIDToServer(){
+    void sendIDToServer(String uid){
         EthernetClient client;
         if (client.connect(HOST_IP,HTTP_PORT))
             {                                 
                         client.println(HTTP_METHOD + " " + HOST_IP + " HTTP/1.1");
                         client.println("Host: " + String(HOST_IP));
+                        client.println("User-Agent: Arduino/1.0");
                         client.println("Connection: close");
+                        client.print("Content-Length: 1"); //POST con solo un dato: el uid
                         client.println(); // end HTTP header      
-
+                        
+                        cliente.print("{\"uid\":");
+                        cliente.print(uid);
+                        cliente.println("}");
+                        delay(500);
 
                         while(client.connected()) {
                             if(client.available()){
@@ -174,7 +192,7 @@ String temp= "data=5";
     }
 
     /**
- * Helper routine to dump a byte array as hex values to Serial. 
+ * Printear array de bytes como hexadecimales. 
  */
 void printHex(byte *buffer, byte bufferSize) {
   for (byte i = 0; i < bufferSize; i++) {
@@ -184,7 +202,7 @@ void printHex(byte *buffer, byte bufferSize) {
 }
 
 /**
- * Helper routine to dump a byte array as dec values to Serial.
+ * Printear array de bytes como decimales.
  */
 void printDec(byte *buffer, byte bufferSize) {
   for (byte i = 0; i < bufferSize; i++) {
