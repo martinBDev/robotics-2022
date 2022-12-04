@@ -1,6 +1,13 @@
 #include <Ethernet.h>
 #include <SPI.h>
 #include <MFRC522.h>
+#include <Servo.h>
+
+ //AUTORES:
+  //Martin Beltran Diaz - UO276244
+  //Stelian Adrian Stanci - UO277653
+  //Laura Pernia Blanco - UO276264
+
 ///////INFO SOBRE EL LECTOR RFID-RC522//////////////////////////////////////////7
 /*
  * Uses MIFARE RFID card using RFID-RC522 reader
@@ -10,7 +17,7 @@
  *             Reader/PCD   Uno/101       Mega      Nano v3    Leonardo/Micro   Pro Micro
  * Signal      Pin          Pin           Pin       Pin        Pin              Pin
  * -----------------------------------------------------------------------------------------
- * RST/Reset   RST          8 (mod)             5         D9         RESET/ICSP-5     RST
+ * RST/Reset   RST          7 (mod)             5         D9         RESET/ICSP-5     RST
  * SPI SS      SDA(SS)      9(mod)            53        D10        10               10
  * SPI MOSI    MOSI         11 / ICSP-4   51        D11        ICSP-4           16
  * SPI MISO    MISO         12 / ICSP-1   50        D12        ICSP-1           14
@@ -30,13 +37,13 @@ byte mac[] = {0x54, 0x55, 0x58, 0x10, 0x00, 0x37};
 
 EthernetServer servidor(80); // Puerto en el 80
 
-IPAddress dnsServer(212,142,173,64); //ESTOS SON LOS DATOS DE MI RED de casa
-IPAddress gateway(192,168,0,1);
+IPAddress dnsServer(8,8,8,8); //ESTOS SON LOS DATOS DE MI RED de casa
+IPAddress gateway(192,168,61,13);
 IPAddress subnet(255, 255, 255, 0);	
 // Que cada uno ponga la IP de su grupo (20X, dónde X es el número
 //del grupo) 201, 202, 203, que es el que tiene asignado. Tiene que ser
 //única en la red local, cuidado
-IPAddress ip(192,168,0,207);
+IPAddress ip(192,168,61,207);
 //////////////////////////////////////////////////////////////////////////////////
 
 //DATA PARA CREAR EL CLIENTE WEB/////////////////////////////////////////////////
@@ -46,7 +53,8 @@ IPAddress ip(192,168,0,207);
 
 int HTTP_PORT = 80;
 String HTTP_METHOD = "POST";
-char HOST_IP[] = "X.X.X.X";
+char SERVER_IP[] = "192.168.0.13";
+char HOST_IP[] = "192.168.0.207";
 String PATH_NAME = ""; 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -56,14 +64,34 @@ String PATH_NAME = "";
 enum ModoTrabajo {
 blocked, //bloqueado por avería: led en rojo y torno cerradp
 working, //trabajo normal del torno
-open //torno permite pasar todo el rato
+opened //torno permite pasar todo el rato
 };
 
 ModoTrabajo estadoActual;
+
+//ID MODELO: 83130224167
 ///////////////////////////////////////////////
+
+
+////ACTUADORES////////////////////
+
+int ledVerde = 2; //abierto o permite entrada
+int ledRojo = 3; //bloqueado
+int ledAzul = 1; //operativo
+
+Servo servo;
 
     void setup()
     {
+
+            pinMode(ledVerde, OUTPUT);
+            pinMode(ledRojo, OUTPUT);
+            pinMode(ledAzul, OUTPUT);
+            digitalWrite(ledAzul, HIGH);
+            
+            
+            servo.attach(4);
+            servo.write(0);
             estadoActual = working;
 
             Ethernet.begin(mac, ip, dnsServer, gateway, subnet);
@@ -83,25 +111,138 @@ ModoTrabajo estadoActual;
                 key.keyByte[i] = 0xFF;    //LA KEY POR DEFECTO DE TARJETAS DEL FABRICANTE MIFARE (Mini, 1k y 4k) ES LA QUE SE DIJO ARRIBA
             }
 
+
     }
+
+
+    void other(){ //testeo
+
+        bloquear();
+      
+        EthernetClient client = servidor.available();
+        if(client){ //Se da preferencia a las peticiones que lleguen desde el server
+            procesarPeticionWeb(client);
+        }
+      
+    }
+
 
     void loop()                                           
     { //FALTA AÑADIR CHECKEO DEL MODO DE TRABAJO DEL TORNO  
 
-
+        
+        
         EthernetClient client = servidor.available();
         //Si hay peticion HTTP darle prioridad
         if(client){ //Se da preferencia a las peticiones que lleguen desde el server
-
+            procesarPeticionWeb(client);
         }else if(! rfid.PICC_IsNewCardPresent()){ //Si no hay tarjeta, resetea el loop
             return;
-        }else{ //Si hay tarjeta, leer 
+        }else if(estadoActual == working){ //Si hay tarjeta, leer 
             sendIDToServer(readCard());
+           
         }     
 
     }
 
 
+    //procesa la peticion web que le llegue, ya sea respuesta del server cuando se comprueba un ID, o como peticion independiente
+    void procesarPeticionWeb(EthernetClient cliente){
+      Serial.println("Nueva peticion");
+            String peticion="";
+            while (cliente.connected()) {
+                if (cliente.available()) {
+                
+                         char c = cliente.read(); //Leer petición carácter a
+                        //carácter
+                         peticion.concat(c); // concatenar en un string
+                         // Ha acabado la peticion http
+                         // Si contiene index responder con una web
+                        
+                         // la petición ha acabado '\n' y contiene la cadena "index"
+                        //al principio: index, indexabc, indexación, etc. Usar equals para que sea
+                        //igual
+                         if (c == '\n' && peticion.indexOf("userAccepted") != -1){ //se recibe la respuesta del servidor que comprueba si el UID es válido
+                             if(peticion.indexOf("true") != -1){ //si se permite entrar al usuario, se abre el torno.
+                                  permitirEntrada(true);break;
+                             }else if(peticion.indexOf("false") != -1){ //si no se permite entrar al usuario, se enciende la luz roja unos segundos.
+                                  permitirEntrada(false); break;
+                             }
+
+                               break;
+                         }else if(c == '\n' && peticion.indexOf("bloquear") != -1){ //se cierra el torno
+                             
+                              
+                              bloquear();
+                              break;
+                              
+                         }else if(c == '\n' && peticion.indexOf("abrir") != -1){ //se abre para todo el mundo
+                              abrir(); break;
+                         }else if(c == '\n' && peticion.indexOf("restaurar") != -1){ //se restaura el funcionamiento del torno
+                              restaurar(); break;
+                         }
+                     }
+             }
+            
+             // Pequeña pausa para asegurar el envio de datos
+             delay(1000);
+             cliente.stop();// Cierra la conexión
+    }
+
+
+//LED EN ROJO Y SE CIERRA EL TORNO HASTA QUE SE CAMBIE EL ESTADO A WORKING O OPEN
+    void bloquear(){
+      estadoActual = blocked;
+      digitalWrite(ledRojo, HIGH);
+      digitalWrite(ledAzul, LOW);
+      digitalWrite(ledVerde, LOW);
+      servo.write(0);
+      
+    }
+//LED EN VERDE Y TORNO ABIERTO HASTA CAMBIAR DE MODO DE FUNCIONAMIENTO
+    void abrir(){
+      estadoActual = opened;
+      digitalWrite(ledRojo, LOW);
+      digitalWrite(ledAzul, LOW);
+      digitalWrite(ledVerde, HIGH);
+      servo.write(180);
+    }
+
+    void restaurar(){
+      estadoActual = working;
+      digitalWrite(ledRojo, LOW);
+      digitalWrite(ledAzul, HIGH);
+      digitalWrite(ledVerde, LOW);
+      servo.write(0);
+    }
+
+    void permitirEntrada(bool permitida){ 
+
+      if(permitida){ //true --> se abre el torno 4 segundos y se enciende la luz verde. Luego se cierra el torno y se apaga la luz
+          servo.write(180);  
+          digitalWrite(ledAzul,LOW);
+          digitalWrite(ledVerde,HIGH);                 
+          delay(4000);
+          servo.write(0);
+          digitalWrite(ledAzul,HIGH);
+          digitalWrite(ledVerde,LOW);  
+          delay(500);
+      }else{ //FALSE --> no se permite entrada, parpadea rojo un par de veces
+         digitalWrite(ledAzul,LOW);
+         digitalWrite(ledRojo,HIGH);
+         delay(1000);
+         digitalWrite(ledRojo,LOW);
+         delay(500);
+         digitalWrite(ledRojo,HIGH);
+         delay(1000);
+         digitalWrite(ledRojo,LOW);
+         delay(500);
+         digitalWrite(ledAzul,HIGH);
+         
+      }
+      
+      
+    }
 
     //Leer el UID de la tarjeta y enviar los datos al server
     String readCard(){
@@ -157,25 +298,19 @@ ModoTrabajo estadoActual;
         EthernetClient client;
         if (client.connect(HOST_IP,HTTP_PORT))
             {                                 
-                        client.println(HTTP_METHOD + " " + HOST_IP + " HTTP/1.1");
+                        client.println(HTTP_METHOD + " " + SERVER_IP + "/checkUser " + " HTTP/1.1");
                         client.println("Host: " + String(HOST_IP));
                         client.println("User-Agent: Arduino/1.0");
                         client.println("Connection: close");
                         client.print("Content-Length: 1"); //POST con solo un dato: el uid
                         client.println(); // end HTTP header      
                         
-                        cliente.print("{\"uid\":");
-                        cliente.print(uid);
-                        cliente.println("}");
+                        client.print("{\"uid\":");
+                        client.print(uid);
+                        client.println("}");
                         delay(500);
 
-                        while(client.connected()) {
-                            if(client.available()){
-                                // read an incoming byte from the server and print it to serial monitor:
-                                char c = client.read();
-                                Serial.print(c);
-                            }
-                        }
+                        
                             // the server's disconnected, stop the server:
                         client.stop();                                 
             }
