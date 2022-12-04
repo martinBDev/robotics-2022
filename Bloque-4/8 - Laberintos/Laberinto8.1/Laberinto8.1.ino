@@ -11,8 +11,8 @@ Servo servoLeft;
 Servo servoRight;
 int pinIrDer = 3;
 int pinIrIzq = 2;
-int pinIzqExt = 11;
-int pinDerExt = 10;
+int pinIzqExt = 10;
+int pinDerExt = 11;
 int pinServoRight = 9;
 int pinServoLeft = 8;
 
@@ -45,12 +45,23 @@ void loop() {
    //corregir trayectoria
    } else if (digitalRead(pinIrIzq) == LINE && digitalRead(pinIrDer) == NO_LINE) {
       girarIzquierda();
+   } else if (digitalRead(pinIrIzq) == LINE && digitalRead(pinIrDer) == LINE &&  digitalRead(pinDerExt) == LINE && digitalRead(pinIzqExt) == LINE) {
+      delay(160);
+      // ES LA META
+      if (digitalRead(pinIrIzq) == LINE && digitalRead(pinIrDer) == LINE &&  digitalRead(pinDerExt) == LINE && digitalRead(pinIzqExt) == LINE) {
+          servoLeft.write(90);
+          servoRight.write(90);
+          delay(10000);
+      } else {
+        girarDerecha();
+        delay(800);
+      }
+      
     //girar a la derecha
    } else if (digitalRead(pinIrIzq) == LINE && digitalRead(pinIrDer) == LINE &&  digitalRead(pinDerExt) == LINE){
       delay(232);
       girarDerecha();
       delay(800);
-    //wsbjbjd
    } else if (digitalRead(pinIrIzq) == LINE && digitalRead(pinIrDer) == LINE &&  digitalRead(pinDerExt) == NO_LINE && digitalRead(pinIzqExt) == LINE) {
       delay(120);
       if (digitalRead(pinIrIzq) == LINE && digitalRead(pinIrDer) == LINE) {
@@ -60,8 +71,7 @@ void loop() {
           girarIzquierda();
           delay(800);
           }
-      
-    }
+    } 
 
 }
 
