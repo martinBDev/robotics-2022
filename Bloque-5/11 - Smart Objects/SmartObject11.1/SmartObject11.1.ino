@@ -17,7 +17,7 @@
  *             Reader/PCD   Uno/101       Mega      Nano v3    Leonardo/Micro   Pro Micro
  * Signal      Pin          Pin           Pin       Pin        Pin              Pin
  * -----------------------------------------------------------------------------------------
- * RST/Reset   RST          7 (mod)             5         D9         RESET/ICSP-5     RST
+ * RST/Reset   RST          8 (mod)             5         D9         RESET/ICSP-5     RST
  * SPI SS      SDA(SS)      9(mod)            53        D10        10               10
  * SPI MOSI    MOSI         11 / ICSP-4   51        D11        ICSP-4           16
  * SPI MISO    MISO         12 / ICSP-1   50        D12        ICSP-1           14
@@ -37,13 +37,16 @@ byte mac[] = {0x54, 0x55, 0x58, 0x10, 0x00, 0x37};
 
 EthernetServer servidor(80); // Puerto en el 80
 
+// Estos datos cogedlos del ordenador que uséis o del de al lado
 IPAddress dnsServer(8,8,8,8); //ESTOS SON LOS DATOS DE MI RED de casa
-IPAddress gateway(192,168,61,13);
-IPAddress subnet(255, 255, 255, 0);	
+IPAddress gateway(192,168,0,1);
+IPAddress subnet(255, 255, 255, 0);
+
+
 // Que cada uno ponga la IP de su grupo (20X, dónde X es el número
 //del grupo) 201, 202, 203, que es el que tiene asignado. Tiene que ser
 //única en la red local, cuidado
-IPAddress ip(192,168,61,207);
+IPAddress ip(192,168,0,207);
 //////////////////////////////////////////////////////////////////////////////////
 
 //DATA PARA CREAR EL CLIENTE WEB/////////////////////////////////////////////////
@@ -51,11 +54,10 @@ IPAddress ip(192,168,61,207);
 
 
 
-int HTTP_PORT = 80;
-String HTTP_METHOD = "POST";
-char SERVER_IP[] = "192.168.0.13";
-char HOST_IP[] = "192.168.0.207";
-String PATH_NAME = ""; 
+int HTTP_PORT = 5000;
+String HTTP_METHOD = "GET";
+char HOST_IP[] = "192.168.0.11"; //ip del servidor python
+String PATH_NAME = "/checkUser"; 
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -97,6 +99,7 @@ Servo servo;
             Ethernet.begin(mac, ip, dnsServer, gateway, subnet);
             Serial.begin(9600);
             servidor.begin();
+            delay(1000);
             Serial.println(Ethernet.localIP());
             delay(1000);
             delay(1000);
@@ -126,13 +129,13 @@ Servo servo;
       
     }
 
-
+EthernetClient client;
     void loop()                                           
     { //FALTA AÑADIR CHECKEO DEL MODO DE TRABAJO DEL TORNO  
 
         
         
-        EthernetClient client = servidor.available();
+        client = servidor.available();
         //Si hay peticion HTTP darle prioridad
         if(client){ //Se da preferencia a las peticiones que lleguen desde el server
             procesarPeticionWeb(client);
@@ -164,23 +167,103 @@ Servo servo;
                         //igual
                          if (c == '\n' && peticion.indexOf("userAccepted") != -1){ //se recibe la respuesta del servidor que comprueba si el UID es válido
                              if(peticion.indexOf("true") != -1){ //si se permite entrar al usuario, se abre el torno.
-                                  permitirEntrada(true);break;
+                                  permitirEntrada(true);
+                                  
+
+                                    cliente.println("HTTP/1.1 200 OK");
+                                   cliente.println("Content-Type: application/json");
+                                   cliente.println("Access-Control-Allow-Origin: *");
+                                   cliente.println();
+                                   cliente.print("{\"opened\":");
+                 
+                                   cliente.print("true");
+                                   cliente.println("}");
+                                                            
+                                   
+                                     Serial.println("Usuario aceptado");
+                                  
+                                  break;
+                               
+                                  
                              }else if(peticion.indexOf("false") != -1){ //si no se permite entrar al usuario, se enciende la luz roja unos segundos.
-                                  permitirEntrada(false); break;
+                                  permitirEntrada(false); 
+                                  
+
+                                  cliente.println("HTTP/1.1 200 OK");
+                                   cliente.println("Content-Type: application/json");
+                                   cliente.println("Access-Control-Allow-Origin: *");
+                                   cliente.println();
+                                   cliente.print("{\"opened\":");
+                 
+                                   cliente.print("false");
+                                   cliente.println("}");
+                                               
+                                  
+                                  
+                                  Serial.println("Usuario NO aceptado");
+                                  break;
+                                  
                              }
+
+                             
 
                                break;
                          }else if(c == '\n' && peticion.indexOf("bloquear") != -1){ //se cierra el torno
                              
                               
                               bloquear();
+
+
+
+                                  cliente.println("HTTP/1.1 200 OK");
+                                   cliente.println("Content-Type: application/json");
+                                   cliente.println("Access-Control-Allow-Origin: *");
+                                   cliente.println();
+                                   cliente.print("{\"state\":");
+                 
+                                   cliente.print("blocked");
+                                   cliente.println("}");
+
+                              
                               break;
                               
                          }else if(c == '\n' && peticion.indexOf("abrir") != -1){ //se abre para todo el mundo
-                              abrir(); break;
+                              abrir(); 
+
+
+                                cliente.println("HTTP/1.1 200 OK");
+                                   cliente.println("Content-Type: application/json");
+                                   cliente.println("Access-Control-Allow-Origin: *");
+                                   cliente.println();
+                                   cliente.print("{\"state\":");
+                 
+                                   cliente.print("opened");
+                                   cliente.println("}");
+
+
+                              
+                              
+                              break;
                          }else if(c == '\n' && peticion.indexOf("restaurar") != -1){ //se restaura el funcionamiento del torno
-                              restaurar(); break;
+                              restaurar(); 
+                              
+
+                              cliente.println("HTTP/1.1 200 OK");
+                                   cliente.println("Content-Type: application/json");
+                                   cliente.println("Access-Control-Allow-Origin: *");
+                                   cliente.println();
+                                   cliente.print("{\"state\":");
+                 
+                                   cliente.print("working");
+                                   cliente.println("}");
+
+                              
+                              
+                              
+                              break;
                          }
+
+
                      }
              }
             
@@ -295,19 +378,17 @@ Servo servo;
 
 
     void sendIDToServer(String uid){
-        EthernetClient client;
+        
+        PATH_NAME = "/checkUser?uuid="+uid;
+        Serial.println(PATH_NAME);
         if (client.connect(HOST_IP,HTTP_PORT))
             {                                 
-                        client.println(HTTP_METHOD + " " + SERVER_IP + "/checkUser " + " HTTP/1.1");
+                        client.println(HTTP_METHOD + " " + PATH_NAME + " HTTP/1.1");
                         client.println("Host: " + String(HOST_IP));
                         client.println("User-Agent: Arduino/1.0");
                         client.println("Connection: close");
-                        client.print("Content-Length: 1"); //POST con solo un dato: el uid
                         client.println(); // end HTTP header      
                         
-                        client.print("{\"uid\":");
-                        client.print(uid);
-                        client.println("}");
                         delay(500);
 
                         

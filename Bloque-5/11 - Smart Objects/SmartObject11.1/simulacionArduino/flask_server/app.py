@@ -3,7 +3,7 @@
   #Stelian Adrian Stanci - UO277653
   #Laura Pernia Blanco - UO276264
 
-from flask import Flask, Response, jsonify, request
+from flask import Flask, Response, jsonify, request, render_template
 import requests
 from flask_cors import CORS
 
@@ -15,17 +15,23 @@ app = Flask(__name__)
 CORS(app)
 
 
-@app.route('/checkUser', methods = ['POST'])
+@app.route("/")
+def hel():
+    return render_template('page.html', state="Iniciando");
+
+@app.route('/checkUser')
 def checkUser():
-    id = request.get_json()["uid"]
-    
+    id = request.args.get('uuid')
+    print(id)
     if(id in validUids):
         r =requests.get(URL_ARDUINO+ "userAccepted?true")
-        return Response({"accepted":True}, mimetype='application/json')
+        return render_template('page.html', state="Funcionando");
+       # return Response({"accepted":True}, mimetype='application/json')
 
     else:
         r =requests.get(URL_ARDUINO+ "userAccepted?false")
-        return Response({"accepted":False}, mimetype='application/json')
+        return render_template('page.html', state="Funcionando");
+        #return Response({"accepted":False}, mimetype='application/json')
 
 
 
@@ -33,11 +39,14 @@ def checkUser():
 @app.route('/bloquear')
 def bloquear():
     r =requests.get(URL_ARDUINO+ "bloquear")
+    return render_template('page.html', state="Bloqueado");
 
 @app.route('/abrir')
 def abrir():
     r =requests.get(URL_ARDUINO+ "abrir")
+    return render_template('page.html', state="Abierto");
 
 @app.route('/restaurar')
 def restaurar():
     r =requests.get(URL_ARDUINO+ "restaurar")
+    return render_template('page.html', state="Funcionando");

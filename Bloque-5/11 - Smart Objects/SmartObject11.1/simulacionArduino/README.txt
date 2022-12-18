@@ -11,8 +11,10 @@ Paso 3: dentro del entorno virtual, instalar flask  y requests:
 Paso 4: variable de entorno FLASK_APP: 
         setx FLASK_APP "<archivo>.py"
 Paso 5: ejecutar app de flask:
-        flask run
+        flask run --host=0.0.0.0
 
 
+IMPORTANTE AÑADIR "--host=0.0.0.0" AL INICIAR EL SERVIDOR,
+PARA QUE SEA EXTERNAMENTE VISIBLE A TODA LA RED LOCAL.
 
 INFO: tutorial en https://phoenixnap.com/kb/install-flask
