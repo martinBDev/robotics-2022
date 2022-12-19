@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<head>
+    <title>My title</title>
+ </head>
+ <body>  
+
+    <h1>Administracion de TORNO online</h1>
+    <h3>Estado actual del torno: {{ state }}</h3>
+     <button id="bloquear" onclick="myFunction('bloquear')">Bloquear</button>
+     <button id="abrir" onclick="myFunction('abrir')">Abrir</button>
+     <button id="restaurar" onclick="myFunction('restaurar')">Restaurar</button>
+
+     <script>
+
+
+        function myFunction(nextLocation) {
+            window.location = 'http://192.168.0.7:5000/'+nextLocation;
+        }
+
+
+    </script>
+
+ </body>
