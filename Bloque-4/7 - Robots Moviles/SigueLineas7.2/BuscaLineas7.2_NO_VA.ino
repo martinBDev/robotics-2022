@@ -30,7 +30,7 @@ void setup(){
 void loop(){
 
   
-  espiral(lineaEncontrada);
+  buscar(lineaEncontrada);
 
   
   //corregir trayectoria
@@ -70,7 +70,7 @@ void loop(){
   }
 }
 
-void espiral(bool hayLinea){
+void buscar(bool hayLinea){
   if(!hayLinea){
 
     
@@ -79,12 +79,12 @@ void espiral(bool hayLinea){
   while (digitalRead(pinIrIzq) == NO_LINE && digitalRead(pinIrDer) == NO_LINE) {
 
       
-        //Palante
+        // Hacia adelante
         servoLeft.write(0);
         servoRight.write(0);
         millis1 = millis();
 
-        //Palante 3 segundos
+        // Hacia delante 3 segundos
         while(millis() - millis1 < 3000){
           if(digitalRead(pinIrIzq) == LINE || digitalRead(pinIrDer) == LINE){
             lineaEncontrada = true;
@@ -92,10 +92,10 @@ void espiral(bool hayLinea){
           }
         }
         
-        //pATRÁ
+        // Hacia atrás
         servoLeft.write(180);
         servoRight.write(180);
-        //Patras 3 segundos
+        // Hacia atrás 3 segundos
         while(millis() - millis1 < 3000){
           if(digitalRead(pinIrIzq) == LINE || digitalRead(pinIrDer) == LINE){
             lineaEncontrada = true;
@@ -104,7 +104,7 @@ void espiral(bool hayLinea){
         }
 
        
-        //Giro pa un lao
+        // Girar a un lado
         servoLeft.write(0);
         servoRight.write(180);
         delay(500);
